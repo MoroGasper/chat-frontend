@@ -132,6 +132,11 @@
             "main": "aurelia-testing",
             "env": "dev"
           },
+          {
+            "name": "socket.io",
+            "path": "../node_modules/socket.io-client/dist",
+            "main": "socket.io"
+          },
           "jquery",
           {
             "name": "bootstrap",

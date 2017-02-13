@@ -1,0 +1,22 @@
+<template>
+  <div class="row" id="chat">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    	<textarea id="chat-content" rows="10"></textarea>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="form-group">
+        <label for="mensaje"
+           class="col-sm-1 control-label text-right">Mensaje:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control"
+             id="mensaje" placeholder="Escriba el mensaje que desea enviar"
+             value.bind="message">
+        </div>
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-primary"
+                  click.delegate="sendMessage()">Enviar Mensaje</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
