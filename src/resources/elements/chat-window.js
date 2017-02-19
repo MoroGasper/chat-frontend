@@ -1,11 +1,14 @@
 import io from 'socket.io';
 import {LogManager} from 'aurelia-framework';
+import $ from 'bootstrap';
 
 export class ChatWindow {
   message = '';
+  username = '';
 
   constructor() {
     this.logger = LogManager.getLogger('chat-window-element');
+    this.username = this.randomString();
   }
 
   attached() {
@@ -17,7 +20,14 @@ export class ChatWindow {
     });
 
     this.socket.on('be-message', (data) => {
-      this.logger.debug(`Event with data: ${data}`);
+      this.logger.debug('Event with data', data);
+      $(this.messages).append(
+        this.createMessageDiv(
+          data.message,
+          data.username
+        )
+      );
+
     });
 
     this.socket.on('disconnect', () =>{
@@ -25,10 +35,27 @@ export class ChatWindow {
     });
   }
 
+  createMessageDiv(message, username) {
+    return $('<div class="chat-message"><span class="username">'
+                    + username + ':</span> ' + message + '</div>');
+  }
+
   sendMessage() {
     this.socket.emit('fe-message', {
-      message: this.message
+      message: this.message,
+      username: this.username
     });
+  }
+
+  randomString() {
+    const letrasDisponibles = `ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                      abcdefghijklmnopqrstuvwxyzÑñ0123456789`;
+    let cadena = '';
+    '1234567'.split('').forEach(() => {
+      const pos = Math.floor(Math.random() * letrasDisponibles.length);
+      cadena += letrasDisponibles.charAt(pos);
+    });
+    return cadena;
   }
 }
 
